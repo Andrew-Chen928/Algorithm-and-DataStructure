@@ -1,0 +1,22 @@
+class Solution {
+public:
+    /**
+     * Returns a index to the first occurrence of target in source,
+     * or -1  if target is not part of source.
+     * @param source string to be scanned.
+     * @param target string containing the sequence of characters to match.
+     */
+    int strStr(const char *source, const char *target) {
+        if(source == NULL || target == NULL) return -1;
+        int len_A = strlen(source);
+        int len_B = strlen(target);
+        for(int i = 0; i <= len_A - len_B; i++)
+        {
+            char tmp[len_B];
+            memcpy( tmp, &source[i], len_B );
+            tmp[len_B] = '\0';
+            if(strcmp(tmp , target) == 0) return i;
+        }
+        return -1;
+    }
+};
