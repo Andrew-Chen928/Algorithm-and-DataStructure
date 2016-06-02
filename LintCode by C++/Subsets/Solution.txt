@@ -1,0 +1,37 @@
+class Solution {
+public:
+    /**
+     * @param S: A set of numbers.
+     * @return: A list of lists. All valid subsets.
+     */
+    int* helper(int k, int size)
+    {
+        int *c = new int[size]{0};
+        for(int i = size -1; i >= 0; i--)
+        {
+            int tmp = k%2;
+            c[i] = tmp;
+            k = k/2;
+        }
+        return c;
+    }
+
+    vector<vector<int> > subsets(vector<int> &nums) {
+    	// write your code here
+    	vector<vector<int>> ans;
+    	int n = nums.size();
+    	int count = pow(2,n);
+    	int *c = new int[n]{0};
+    	for(int i = 0; i < count; i++)
+    	{
+    	    vector<int> v;
+            c = helper(i, n);
+            for(int j = 0; j < n; j++)
+            {
+                if(c[j] == 1) v.push_back(nums[j]);
+            }
+            ans.push_back(v);
+    	}
+    	return ans;
+    }
+};
