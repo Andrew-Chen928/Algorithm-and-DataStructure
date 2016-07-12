@@ -18,9 +18,7 @@ public:
      */
     void FindPath(TreeNode* r, string s, vector<string> &result) 
     {
-        
         s += to_string(r->val);
-        string s2 = s;
         if(r->left == NULL && r->right == NULL) 
         {   
             result.push_back(s);
@@ -29,15 +27,12 @@ public:
         
         if(r->left != NULL) 
         {
-            s += "->";
-            FindPath(r->left, s, result);
-            s = s2;
+            FindPath(r->left, s + "->", result);
         }
         
         if(r->right != NULL) 
         {
-            s += "->";
-            FindPath(r->right, s, result);
+            FindPath(r->right, s + "->", result);
         }
     }
      
