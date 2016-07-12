@@ -1,0 +1,52 @@
+/**
+ * Definition of TreeNode:
+ * class TreeNode {
+ * public:
+ *     int val;
+ *     TreeNode *left, *right;
+ *     TreeNode(int val) {
+ *         this->val = val;
+ *         this->left = this->right = NULL;
+ *     }
+ * }
+ */
+class Solution {
+public:
+    /**
+     * @param root the root of the binary tree
+     * @return all root-to-leaf paths
+     */
+    void FindPath(TreeNode* r, string s, vector<string> &result) 
+    {
+        
+        s += to_string(r->val);
+        string s2 = s;
+        if(r->left == NULL && r->right == NULL) 
+        {   
+            result.push_back(s);
+            return;
+        }
+        
+        if(r->left != NULL) 
+        {
+            s += "->";
+            FindPath(r->left, s, result);
+            s = s2;
+        }
+        
+        if(r->right != NULL) 
+        {
+            s += "->";
+            FindPath(r->right, s, result);
+        }
+    }
+     
+    vector<string> binaryTreePaths(TreeNode* root) {
+        // Write your code here
+        string s = "";
+        vector<string> v;
+        if(root == NULL) return v;
+        FindPath(root, s, v);
+        return v;
+    }
+};
