@@ -4,33 +4,17 @@ public:
      * @param digits a number represented as an array of digits
      * @return the result
      */
-     
-    void helper(vector<int>& digits, int value, int position)
-    {
-        
-        if(value == 9)
-        {
-            digits[position] = 0;
-            position--;
-            helper(digits, digits[position], position);
-        }
-        else
-        {
-            digits[position]++;
-        }
-    }
-     
     vector<int> plusOne(vector<int>& digits) {
         // Write your code here
-        digits.emplace_back(0);
-        rotate(digits.begin(), digits.end()-1, digits.end());
-        
         int len = digits.size();
-        helper(digits, digits[len-1], len-1 );
-        if(digits[0] == 0) 
+        int tmp = 1;
+        for(int i = len - 1; i >= 0; i-- )
         {
-            digits.erase(digits.begin());
+            digits[i] += tmp;
+            tmp = digits[i] / 10;
+            digits[i] = digits[i] % 10;
         }
+        if(tmp == 1) digits.insert(digits.begin(), tmp);
         return digits;
     }
 };

@@ -1,0 +1,39 @@
+/**
+ * Definition of Interval:
+ * classs Interval {
+ *     int start, end;
+ *     Interval(int start, int end) {
+ *         this->start = start;
+ *         this->end = end;
+ *     }
+ */
+bool comp(Interval a, Interval b) {
+        return a.start < b.start;
+}
+ 
+class Solution {
+public:
+    /**
+     * @param intervals: interval list.
+     * @return: A new interval list.
+     */
+     
+    vector<Interval> merge(vector<Interval> &intervals) {
+        // write your code here
+        if (intervals.empty()) {
+            return intervals;
+        }
+        
+        sort(intervals.begin(), intervals.end(), comp);
+        vector<Interval> result = {intervals[0]};
+        for(int i = 0; i < intervals.size(); i++)
+        {
+            if(result.back().end >= intervals[i].start)
+            {
+                result.back().end = max(result.back().end, intervals[i].end );
+            }
+            else result.emplace_back(intervals[i]);
+        }
+        return result;
+    }
+};
