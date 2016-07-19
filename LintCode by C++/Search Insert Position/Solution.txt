@@ -1,0 +1,19 @@
+class Solution {
+    /** 
+     * param A : an integer sorted array
+     * param target :  an integer to be inserted
+     * return : an integer
+     */
+public:
+    int searchInsert(vector<int> &A, int target) {
+        // write your code here
+        int len = A.size();
+        if (A.size() == 0 || A[0] > target) return 0;
+        if ( A[len -1] < target) return len;
+        for(int i = 0; i < A.size(); i++)
+        {
+            if(A[i] == target || A[i] > target) return i;
+        }
+        return -1;
+    }
+};
