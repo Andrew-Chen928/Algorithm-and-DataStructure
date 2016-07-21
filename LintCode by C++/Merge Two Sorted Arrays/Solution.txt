@@ -22,21 +22,16 @@ public:
                 index_b++;
             }
         }
-        if(index_a == len_a) 
+        while(index_b < len_b)
         {
-            while(index_b < len_b)
-            {
-                result.emplace_back(B[index_b]);
-                index_b++;
-            }
+            result.emplace_back(B[index_b]);
+            index_b++;
         }
-        else if(index_b == len_b)
+   
+        while(index_a < len_a)
         {
-            while(index_a < len_a)
-            {
-                result.emplace_back(A[index_a]);
-                index_a++;
-            }
+            result.emplace_back(A[index_a]);
+            index_a++;
         }
         return result;
     }
