@@ -1,0 +1,43 @@
+class Solution {
+public:
+    /**
+     * @param A and B: sorted integer array A and B.
+     * @return: A new sorted integer array
+     */
+    vector<int> mergeSortedArray(vector<int> &A, vector<int> &B) {
+        // write your code here
+        vector<int> result;
+        int index_a = 0, index_b = 0;
+        int len_a = A.size(), len_b = B.size();
+        while(index_a < len_a && index_b < len_b)
+        {
+            if(A[index_a] < B[index_b]) 
+            {
+                result.emplace_back(A[index_a]);
+                index_a++;
+            }
+            else
+            {
+                result.emplace_back(B[index_b]);
+                index_b++;
+            }
+        }
+        if(index_a == len_a) 
+        {
+            while(index_b < len_b)
+            {
+                result.emplace_back(B[index_b]);
+                index_b++;
+            }
+        }
+        else if(index_b == len_b)
+        {
+            while(index_a < len_a)
+            {
+                result.emplace_back(A[index_a]);
+                index_a++;
+            }
+        }
+        return result;
+    }
+};
