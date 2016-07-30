@@ -1,0 +1,30 @@
+class Solution {
+public:
+    /**
+     * @param nums: The integer array.
+     * @param target: Target number to find.
+     * @return: The first position of target. Position starts from 0. 
+     */
+    int binarySearch(vector<int> &array, int target) {
+        // write your code here
+        int s = 0, e = array.size() -1;
+        while(s + 1 < e)
+        {
+            int m = s + (e - s) / 2;
+            if(array[m] == target)
+            {
+                e = m;
+            }
+            else if(array[m] > target)
+            {
+                e = m;
+            }
+            else s = m;
+        }
+        if(array[s] == target) return s;
+        if(array[e] == target) return e;
+        return -1;
+    }
+};
+
+       
