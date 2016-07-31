@@ -35,7 +35,6 @@ public:
         }
         if (A[end] == target) result[1] = end;
         else if (A[start] == target) result[1] = start;
-        else return result;
         return result;
         
     }
