@@ -1,0 +1,37 @@
+/**
+ * Definition of TreeNode:
+ * class TreeNode {
+ * public:
+ *     int val;
+ *     TreeNode *left, *right;
+ *     TreeNode(int val) {
+ *         this->val = val;
+ *         this->left = this->right = NULL;
+ *     }
+ * }
+ */
+class Solution {
+public:
+    /**
+     * @param root: The root of binary tree.
+     * @return: An integer
+     */
+    // write your code here
+    int findMax(TreeNode *root, int &res)
+    {
+        if(root == nullptr) return 0;
+        int l = findMax(root->left, res);
+        int r = findMax(root->right, res);
+        int max_side = max(max(l,r) + root->val, root->val);
+        int max_top = max(max_side, root->val + l + r);
+        res = max(res, max_top);
+        return max_side;
+    }
+    
+    int maxPathSum(TreeNode *root) {
+        int res = INT_MIN;
+        findMax(root, res);
+        return res;
+        
+    }
+};
