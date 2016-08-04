@@ -1,0 +1,45 @@
+/**
+ * Definition of TreeNode:
+ * class TreeNode {
+ * public:
+ *     int val;
+ *     TreeNode *left, *right;
+ *     TreeNode(int val) {
+ *         this->val = val;
+ *         this->left = this->right = NULL;
+ *     }
+ * }
+ * Example of iterate a tree:
+ * BSTIterator iterator = BSTIterator(root);
+ * while (iterator.hasNext()) {
+ *    TreeNode * node = iterator.next();
+ *    do something for node
+ */
+class BSTIterator {
+public:
+    //@param root: The root of binary tree.
+    
+    stack<TreeNode *> myStack;
+    TreeNode *current;
+    
+    BSTIterator(TreeNode *root) {
+        current = root;
+    }
+
+    /** @return whether we have a next smallest number */
+    bool hasNext() {
+        return (current != NULL || !myStack.empty());
+    }
+
+    /** @return the next smallest number */
+    TreeNode* next() {
+        while (current != NULL) {
+            myStack.push(current);
+            current = current->left;
+        }
+        current = myStack.top(); myStack.pop();
+        TreeNode *nxt = current;
+        current = current->right;
+        return nxt;
+    }
+};
