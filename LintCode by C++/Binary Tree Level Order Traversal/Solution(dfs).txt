@@ -1,0 +1,45 @@
+/**
+ * Definition of TreeNode:
+ * class TreeNode {
+ * public:
+ *     int val;
+ *     TreeNode *left, *right;
+ *     TreeNode(int val) {
+ *         this->val = val;
+ *         this->left = this->right = NULL;
+ *     }
+ * }
+ */
+
+int getHeight(TreeNode *root)
+{
+    if(root == nullptr) return 0;
+    else return 1 + max(getHeight(root->left), getHeight(root->right));
+}
+
+void level_order(TreeNode *root, vector<vector<int>> &v, int count)
+{
+    count++;
+    if(root != nullptr) 
+    {
+        v[count].emplace_back(root->val);
+        level_order(root->left, v, count);
+        level_order(root->right, v, count);
+    }
+}
+
+class Solution {
+    /**
+     * @param root: The root of binary tree.
+     * @return: Level order a list of lists of integer
+     */
+public:
+    vector<vector<int>> levelOrder(TreeNode *root) {
+        // write your code here
+        int h = getHeight(root);
+        vector<vector<int>> v(h);
+        int count = -1;
+        level_order(root, v, count);
+        return v;
+    }
+};
