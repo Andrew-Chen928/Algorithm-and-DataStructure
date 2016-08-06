@@ -1,0 +1,29 @@
+//This DP solution can't pass the test because "Time Limit Exceeded"
+//It takes O(n^2) Just for reference !
+
+class Solution {
+public:
+    /**
+     * @param A: A list of integers
+     * @return: The boolean answer
+     */
+    bool canJump(vector<int> A) {
+        // Dynamic Programming
+        int n = A.size();
+        vector<bool> table(n);
+        table[0] = true;
+        
+        for(int i = i; i < n; i++)
+        {
+            for(int j = 0; j < i; j++)
+            {
+                if( table[j] && j + A[j] >= i) 
+                {
+                    table[i] = true;
+                    break;
+                }
+            }
+        }
+        return table[n-1];
+    }
+};
