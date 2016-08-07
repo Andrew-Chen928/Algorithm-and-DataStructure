@@ -1,0 +1,25 @@
+class Solution {
+public:
+    /**
+     * @param nums: The integer array
+     * @return: The length of LIS (longest increasing subsequence)
+     */
+    int longestIncreasingSubsequence(vector<int> nums) {
+        // write your code here
+        vector<int> table(nums.size(), 1);
+        int n = nums.size();
+        for(int i = 0; i < n; i++)
+        {
+            for(int j = i+1; j < n; j++)
+            {
+                if(nums[i] < nums[j]) table[j] = max(table[j], table[i] + 1);
+            }
+        }
+        int max = 0;
+        for(int i = 0; i < n; i++)
+        {
+            if(table[i] > max) max = table[i];
+        }
+        return max;
+    }
+};
