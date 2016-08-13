@@ -1,0 +1,30 @@
+class Solution {
+public:
+    /**
+     * @param s a string
+     * @return an integer
+     */
+    int minCut(string s) {
+        // write your code here
+        int n = s.length();
+        vector<vector<bool>> isPalin(n, vector<bool>(n, false));
+        vector<int> res(n + 1);
+        
+        for(int i = n-1; i >= 0; i--)
+        {
+            res[i] = n - i;
+            for(int j = i; j < n; j++)
+            {
+                if(s[i] == s[j] && (j - i < 2) || s[i] == s[j] && isPalin[i+1][j-1])
+                {
+                    isPalin[i][j] = true;
+                    res[i] = min(res[i], res[j+1] + 1);
+                }
+            }
+        }
+        return res[0] - 1;
+    }
+};
+
+
+
