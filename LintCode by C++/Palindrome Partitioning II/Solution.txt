@@ -8,21 +8,22 @@ public:
         // write your code here
         int n = s.length();
         vector<vector<bool>> isPalin(n, vector<bool>(n, false));
-        vector<int> res(n + 1);
-        
+        vector<int> cuts(n + 1);
+        //cuts[i] 代表後 n 個字串可以被分成幾個 palindrome
         for(int i = n-1; i >= 0; i--)
         {
-            res[i] = n - i;
+            //最壞的情況下 最多可被分為 n-1 個 即是每個字母單獨一個
+            cuts[i] = n - i;
             for(int j = i; j < n; j++)
             {
                 if(s[i] == s[j] && (j - i < 2) || s[i] == s[j] && isPalin[i+1][j-1])
-                {
+                { 
                     isPalin[i][j] = true;
-                    res[i] = min(res[i], res[j+1] + 1);
+                    cuts[i] = min(cuts[i], cuts[j+1] + 1);
                 }
             }
         }
-        return res[0] - 1;
+        return cuts[0] -1;
     }
 };
 

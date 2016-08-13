@@ -1,0 +1,26 @@
+class Solution {
+public:    
+    /**
+     * @param A, B: Two string.
+     * @return: the length of the longest common substring.
+     */
+    int longestCommonSubstring(string &A, string &B) {
+        // DP solution
+        int m = A.length() + 1, n = B.length() + 1;
+        vector<vector<int>> table(m, vector<int>(n, 0));
+        int maxL = 0;
+        for(int i = 1; i < m; i++)
+        {
+            for(int j = 1; j < n; j++)
+            {
+                //左上位置必須先相等 才去計算當前位置
+                if(A[i-1] == B[j-1]) 
+                {
+                    table[i][j] = table[i-1][j-1] + 1;
+                    maxL = max(maxL, table[i][j]);
+                }
+            }
+        }
+        return maxL;
+    }
+};

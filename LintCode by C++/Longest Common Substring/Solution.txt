@@ -1,0 +1,28 @@
+class Solution {
+public:    
+    /**
+     * @param A, B: Two string.
+     * @return: the length of the longest common substring.
+     */
+    int longestCommonSubstring(string &A, string &B) {
+        // write your code here
+        int m = A.length(), n = B.length();
+        int maxL = 0;
+        for(int i = 0; i < m; i++)
+        {
+            for(int j = 0; j < n; j++)
+            {
+                
+                int tmp = 0;
+                while(A[i + tmp] == B[j + tmp] && i + tmp < m && j + tmp < n)
+                {
+                    tmp++;
+                }
+                maxL = tmp > maxL ? tmp : maxL;
+                j = j + tmp;
+                
+            }
+        }
+        return maxL;
+    }
+};
