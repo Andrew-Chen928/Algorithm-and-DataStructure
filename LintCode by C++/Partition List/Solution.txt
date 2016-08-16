@@ -1,0 +1,47 @@
+/**
+ * Definition of ListNode
+ * class ListNode {
+ * public:
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int val) {
+ *         this->val = val;
+ *         this->next = NULL;
+ *     }
+ * }
+ */
+class Solution {
+public:
+    /**
+     * @param head: The first node of linked list.
+     * @param x: an integer
+     * @return: a ListNode 
+     */
+    ListNode *partition(ListNode *head, int x) {
+        // write your code here
+        ListNode *left = new ListNode(0);
+        ListNode *right = new ListNode(0);
+        ListNode *left_H = left;
+        ListNode *right_H = right;
+        
+        while(head != nullptr)
+        {
+            if(head->val < x)
+            {
+                left->next = head;
+                left = head;
+            }
+            else
+            {
+                right->next = head;
+                right = head;
+            }
+            head = head->next;
+        }
+        left->next = right_H->next;
+        right->next = nullptr;
+        return left_H->next;
+    }
+};
+
+
