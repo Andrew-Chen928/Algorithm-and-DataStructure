@@ -1,0 +1,63 @@
+/**
+ * Definition of ListNode
+ * class ListNode {
+ * public:
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int val) {
+ *         this->val = val;
+ *         this->next = NULL;
+ *     }
+ * }
+ * Definition of TreeNode:
+ * class TreeNode {
+ * public:
+ *     int val;
+ *     TreeNode *left, *right;
+ *     TreeNode(int val) {
+ *         this->val = val;
+ *         this->left = this->right = NULL;
+ *     }
+ * }
+ */
+ 
+int getSize(ListNode *head)
+{
+    int c = 0;
+    while(head != nullptr)
+    {
+        c++;
+        head = head->next;
+    }
+    return c;
+}
+
+TreeNode* convertTree(ListNode *&head, int size)
+{
+    if(size == 0) return nullptr;
+    TreeNode *tmp = new TreeNode(0);
+    
+    tmp->left = convertTree(head, size / 2);
+    
+    tmp->val = head->val;
+    head = head->next;
+    
+    tmp->right = convertTree(head, size - size / 2 - 1);
+    return tmp;
+}
+
+
+class Solution {
+public:
+    /**
+     * @param head: The first node of linked list.
+     * @return: a tree node
+     */
+    TreeNode *sortedListToBST(ListNode *head) {
+        // write your code here
+        int size = getSize(head);
+        return convertTree(head, size);
+    }
+};
+
+
