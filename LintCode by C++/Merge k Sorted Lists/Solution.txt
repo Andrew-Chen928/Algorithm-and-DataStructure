@@ -1,0 +1,64 @@
+/**
+ * Definition of ListNode
+ * class ListNode {
+ * public:
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int val) {
+ *         this->val = val;
+ *         this->next = NULL;
+ *     }
+ * }
+ */
+ 
+ListNode* mergeTwoLists(ListNode* L1, ListNode* L2)
+{
+    ListNode *dummy = new ListNode(0);
+    ListNode *cur = dummy;
+    while(L1 != nullptr && L2 != nullptr)
+    {
+        if(L1->val < L2->val)
+        {
+            cur->next = L1;
+            L1 = L1->next;
+        }
+        else
+        {
+            cur->next = L2;
+            L2 = L2->next;
+        }
+        cur = cur->next;
+    }
+    while(L1 != nullptr)
+    {
+        cur->next = L1;
+        cur = cur->next;
+        L1 = L1->next;
+    }
+    while(L2 != nullptr)
+    {
+        cur->next = L2;
+        cur = cur->next;
+        L2 = L2->next;
+    }
+    return dummy->next;
+}
+class Solution {
+public:
+    /**
+     * @param lists: a list of ListNode
+     * @return: The head of one sorted list.
+     */
+    ListNode *mergeKLists(vector<ListNode *> &lists) {
+        // write your code here
+        int n = lists.size();
+        ListNode *tmp = nullptr;
+        for(int i = 0; i < n; i++)
+        {
+            tmp = mergeTwoLists(tmp, lists[i]);
+        }
+        return tmp;
+    }
+};
+
+
