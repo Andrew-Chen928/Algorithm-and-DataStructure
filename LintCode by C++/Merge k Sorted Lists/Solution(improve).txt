@@ -41,13 +41,18 @@ public:
   
     ListNode *mergeKLists(vector<ListNode *> &lists) {
         // write your code here
-        int n = lists.size();
-        ListNode *tmp = nullptr;
-        for(int i = 0; i < n; i++)
-        {
-            tmp = mergeTwoLists(tmp, lists[i]);
+        if(lists.size() == 0) return nullptr;
+        int start = 0, end = lists.size() -1;
+        while(end > 0){
+            start = 0;
+            while(start < end)
+            {
+                lists[start] = mergeTwoLists(lists[start], lists[end]);
+                start++;
+                end--;
+            }
         }
-        return tmp;
+        return lists[0];
     }
 };
 
