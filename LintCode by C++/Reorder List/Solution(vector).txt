@@ -1,0 +1,40 @@
+/**
+ * Definition of ListNode
+ * class ListNode {
+ * public:
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int val) {
+ *         this->val = val;
+ *         this->next = NULL;
+ *     }
+ * }
+ */
+class Solution {
+public:
+    /**
+     * @param head: The first node of linked list.
+     * @return: void
+     */
+    void reorderList(ListNode *head) {
+        // write your code here
+        if(head == nullptr) return;
+        vector<ListNode*> v;
+        ListNode *cur = head;
+        while(cur != nullptr)
+        {
+            v.emplace_back(cur);
+            cur = cur->next;
+        }
+        
+        int start = 0, end = v.size() - 1;
+        while(start < end)
+        {
+            v[start]->next = v[end];
+            v[end--]->next = v[++start];
+        }
+        v[start]->next = nullptr;
+    }
+};
+
+
