@@ -1,0 +1,32 @@
+class Solution {
+public:
+    /**
+     * @param nums1 an integer array
+     * @param nums2 an integer array
+     * @return an integer array
+     */
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        // Write your code here
+        vector<int> res;
+        if(nums1.size() == 0 || nums2.size() == 0) return res;
+        unordered_map<int, int> map;
+        
+        for(int i = 0; i < nums1.size(); i++)
+        {
+            if(map.find(nums1[i]) == map.end()) 
+            {
+                map[nums1[i]] = 0;
+            }
+        }
+        
+        for(int j = 0; j < nums2.size(); j++)
+        {
+            if(map.find(nums2[j]) != map.end() && map[nums2[j]] < 1)
+            {
+                res.push_back(nums2[j]);    
+                map[nums2[j]]++;
+            }
+        }
+        return res;
+    }
+};
