@@ -1,0 +1,35 @@
+class Solution {
+public:
+    /**
+     * @param nums: A list of integers
+     * @return: A list of integers includes the index of the first number 
+     *          and the index of the last number
+     */
+    vector<int> subarraySum(vector<int> nums){
+        // write your code here
+        vector<int> res;
+        int start = 0, end = 0;
+        int n = nums.size();
+        for(int i = 0; i < n; i++)
+        {
+            int tmp = nums[i];
+            if(tmp == 0)
+            {
+                res.emplace_back(i);
+                res.emplace_back(i);
+                return res;
+            }
+            for(int j = i+1; j < n; j++)
+            {
+                tmp += nums[j];
+                if(tmp == 0)
+                {
+                    res.emplace_back(i);
+                    res.emplace_back(j);
+                    return res;
+                }
+            }
+        }
+        return res;
+    }
+};
