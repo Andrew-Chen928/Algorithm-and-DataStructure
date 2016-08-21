@@ -1,0 +1,27 @@
+class Solution {
+public:
+    /**
+     * @param nums an integer array
+     * @param target an integer
+     * @return the difference between the sum and the target
+     */
+    int twoSumCloset(vector<int>& nums, int target) {
+        // Write your code here
+        int n = nums.size();
+        if(n == 0) return target;
+        int sum = 0;
+        int min = INT_MAX;
+        for(int i = 0; i < n; i++)
+        {
+            sum = nums[i];
+            for(int j = i+1; j < n; j++)
+            {
+                if(abs(sum + nums[j] - target) < min) 
+                {
+                    min = abs(sum + nums[j] - target);
+                }
+            }
+        }
+        return min;
+    }
+};
