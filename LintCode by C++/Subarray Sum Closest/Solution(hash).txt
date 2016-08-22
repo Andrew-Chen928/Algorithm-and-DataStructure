@@ -1,0 +1,57 @@
+class Solution {
+public:
+    /**
+     * @param nums: A list of integers
+     * @return: A list of integers includes the index of the first number 
+     *          and the index of the last number
+     */
+    vector<int> subarraySumClosest(vector<int> nums){
+        // write your code here
+        cout << "min = " << min << endl;
+        int min = INT_MAX + 1, tmp = 0;
+        cout << "min = " << min << endl;
+        int n = nums.size(), num1 = 0, num2 = 0;
+        vector<int> res(2);
+        vector<int> sum;
+        sum.emplace_back(0);
+        unordered_map<int, int> map;
+        map[0] = 0;
+        for(int i = 0; i < n; i++)
+        {
+            tmp += nums[i];
+            sum.emplace_back(tmp);
+            map[tmp] = i+1;
+        }
+        sort(sum.begin(), sum.end());
+        // for(int i = 0; i < sum.size(); i++)
+        // {
+        //     cout << sum[i] << ", ";
+        // }
+        // cout << endl;
+        // cout << "sum.size = " << sum.size() << endl;
+        for(int i = 1; i < sum.size(); i++)
+        {
+            // cout << "i = " << i << " size = " << sum.size() << endl;
+            // cout << "sum[i] = " << sum[i] << " sum[i-1] = " << sum[i-1] << endl;
+            if(sum[i] - sum[i-1] < min)
+            {
+                cout << "hi there" << endl;
+                min = sum[i] - sum[i-1];
+                num1 = sum[i];
+                num2 = sum[i-1];
+                cout << num1 << " " << num2 << endl;
+            }
+        }
+        if(map[num1] > map[num2])
+        {
+            res[0] = map[num2];
+            res[1] = map[num1] - 1;
+        }
+        else
+        {
+            res[0] = map[num1];
+            res[1] = map[num2] - 1;
+        }
+        return res;
+    }
+};
