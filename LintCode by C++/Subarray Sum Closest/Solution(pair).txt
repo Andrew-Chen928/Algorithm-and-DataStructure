@@ -1,0 +1,36 @@
+class Solution {
+public:
+    /**
+     * @param nums: A list of integers
+     * @return: A list of integers includes the index of the first number 
+     *          and the index of the last number
+     */
+    vector<int> subarraySumClosest(vector<int> nums){
+        // write your code here
+        int minSum = INT_MAX, tmp = 0, n = nums.size();
+        vector<pair<int,int>> sum(n + 1, {0,0});
+        sum[0].second = -1;
+        int left = -1, right = -1;
+       
+        for(int i = 0; i < n; i++)
+        {
+            tmp += nums[i];
+            sum[i+1].first = tmp;
+            sum[i+1].second = i;
+        }
+        //sort a pair is base on the key value (sum[i].first)
+        sort(sum.begin(), sum.end());
+        for(int i = 0; i < sum.size() - 1; i++)
+        {
+            //be careful the test case may have INT_MAX include, so we need "<="
+            if(abs(sum[i+1].first - sum[i].first) <= minSum )
+            {
+                minSum = abs(sum[i+1].first - sum[i].first);
+                left = min(sum[i+1].second, sum[i].second) + 1;
+                right = max(sum[i+1].second, sum[i].second);
+            }
+        }
+        return {left, right};
+        
+    }
+};
