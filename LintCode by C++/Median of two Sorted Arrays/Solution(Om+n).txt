@@ -1,0 +1,42 @@
+class Solution {
+public:
+    /**
+     * @param A: An integer array.
+     * @param B: An integer array.
+     * @return: a double whose format is *.5 or *.0
+     */
+    int findKth(vector<int> A, vector<int> B, int k)
+    {
+        int pa = 0, pb = 0, res = 0;
+        while(k > 0 && pa < A.size() && pb < B.size())
+        {
+            if(A[pa] < B[pb]){
+                res = A[pa++];
+            }
+            else{
+                res = B[pb++];
+            } 
+            k--;
+        }
+        while(k > 0 && pa != A.size())
+        {
+            res = A[pa++];
+            k--;
+        }
+        while(k > 0 && pb != B.size())
+        {
+            res = B[pb++];
+            k--;
+        }
+        return res;
+    }
+    
+    double findMedianSortedArrays(vector<int> A, vector<int> B) {
+        // write your code here
+        int k = (A.size() + B.size()) / 2 + 1;
+        if((A.size() + B.size()) % 2 != 0) return findKth(A,B,k) / 1.0;
+        else {
+            return (findKth(A,B,k) + findKth(A,B,k - 1)) / 2.0;
+        }
+    }
+};
