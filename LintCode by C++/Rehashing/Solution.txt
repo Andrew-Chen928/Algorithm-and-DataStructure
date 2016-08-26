@@ -1,0 +1,51 @@
+/**
+ * Definition of ListNode
+ * class ListNode {
+ * public:
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int val) {
+ *         this->val = val;
+ *         this->next = NULL;
+ *     }
+ * }
+ */
+class Solution {
+public:
+    /**
+     * @param hashTable: A list of The first node of linked list
+     * @return: A list of The first node of linked list which have twice size
+     */    
+     
+    void insert_list_node(ListNode* node, int number)
+    {
+        while(node->next != nullptr){
+            node = node->next;
+        }
+        node->next = new ListNode(number);
+    }
+     
+    void insert_node(vector<ListNode*> &hash, int key_size, int number)
+    {
+        //get the key value
+        int key = (number + key_size) % key_size;
+        //insert node directly or by linkedList    
+        if(hash[key] == nullptr) hash[key] = new ListNode(number);
+        else insert_list_node(hash[key], number);
+    }
+    
+    vector<ListNode*> rehashing(vector<ListNode*> hashTable) {
+        // write your code here
+        int new_size = hashTable.size() * 2;
+        vector<ListNode*> new_hash(new_size, nullptr);
+        
+        for(int i = 0; i < hashTable.size(); i++){
+            ListNode *p = hashTable[i];
+            while(p != nullptr){
+                insert_node(new_hash, new_size, p->val);
+                p = p->next;
+            }
+        }
+        return new_hash;
+    }
+};
