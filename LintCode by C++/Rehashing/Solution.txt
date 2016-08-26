@@ -28,7 +28,10 @@ public:
     void insert_node(vector<ListNode*> &hash, int key_size, int number)
     {
         //get the key value
-        int key = (number + key_size) % key_size;
+        int key = 0;
+        if(number >= 0) key = number % key_size;
+        else key = (number % key_size + key_size) % key_size;
+     
         //insert node directly or by linkedList    
         if(hash[key] == nullptr) hash[key] = new ListNode(number);
         else insert_list_node(hash[key], number);
