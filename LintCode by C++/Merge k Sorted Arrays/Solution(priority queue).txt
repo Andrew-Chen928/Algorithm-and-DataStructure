@@ -1,0 +1,36 @@
+class Solution {
+public:
+    /**
+     * @param arrays k sorted integer arrays
+     * @return a sorted array
+     */
+
+    vector<int> mergekSortedArrays(vector<vector<int>>& arrays) {
+        // Write your code here
+        vector<int> res;
+        priority_queue<int, vector<int>, greater<int>> p;
+        int k = arrays.size(), tmp = 0;
+        vector<int> k_index(k, 0);
+        for(int i = 0; i < k; i++)
+        {
+            if(arrays[i].size() != 0) p.push(arrays[i][k_index[i]]);
+        }
+        
+        while(!p.empty())
+        {
+            tmp = p.top();
+            res.emplace_back(tmp);
+            p.pop();
+            for(int i = 0; i < k; i++)
+            {
+                if(arrays[i][k_index[i]] == tmp && k_index[i] < arrays[i].size() - 1)
+                {
+                    k_index[i]++;
+                    p.push(arrays[i][k_index[i]]);
+                    break;
+                }
+            }
+        }
+        return res;
+    }
+};
