@@ -1,0 +1,91 @@
+
+struct node{
+    int val;
+    int key;
+    node* next;
+    node* prev;
+    node():val(0), key(0), next(nullptr), prev(nullptr){}
+    node(int k, int v):key(k), val(v), next(nullptr), prev(nullptr){}
+};
+
+
+class LRUCache{
+public:
+    // @param capacity, an integer
+    LRUCache(int capacity) {
+        // write your code here
+        cap = capacity;
+        size = 0;
+        map.clear();
+        head = new node(-1, -1);
+        tail = new node(-1, -1);
+        head->next = tail;
+        tail->prev = head;
+    }
+    
+    // @return an integer
+    int get(int key) {
+        // write your code here
+        if(map.count(key)) 
+        {
+            move_to_head(map[key]);
+            return map[key]->val;
+        }
+        else{
+            return -1;
+        } 
+    }
+    
+    
+    void insert_to_head(node* n)
+    {
+        head->next->prev = n;
+        n->next = head->next;
+        head->next = n;
+        n->prev = head;
+    }
+
+    void move_to_head(node* n)
+    {
+        n->prev->next = n->next;
+        n->next->prev = n->prev;
+        insert_to_head(n);
+    }
+    
+    void remove_tail()
+    {
+        node *tmp = tail->prev;
+        tmp->prev->next = tail;
+        tail->prev = tmp->prev;
+        map.erase(tmp->key);
+        delete tmp;
+        size--;
+    }
+    
+    // @param key, an integer
+    // @param value, an integer
+    // @return nothing
+    void set(int key, int value) {
+        //If the node had already exist
+        if(map.count(key))
+        {
+            map[key]->val = value;
+            move_to_head(map[key]);
+        }
+        else{
+            if(size >= cap) 
+            {
+                remove_tail();
+            }
+            node *tmp = new node(key, value);
+            map[key] = tmp;
+            insert_to_head(tmp);
+            size++;
+        }
+    }
+    
+private:
+    int cap, size;
+    node *head, *tail;
+    unordered_map<int, node*> map;
+};
