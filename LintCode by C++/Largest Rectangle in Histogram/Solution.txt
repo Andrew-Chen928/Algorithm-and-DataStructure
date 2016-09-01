@@ -1,0 +1,27 @@
+class Solution {
+public:
+    /**
+     * @param height: A list of integer
+     * @return: The area of largest rectangle in the histogram
+     */
+    int largestRectangleArea(vector<int> &height) {
+        // write your code here
+        height.emplace_back(0);
+        stack<int> s;
+        int i = 0, maxSum = 0;
+        while(i < height.size() + 1)
+        {
+            if(s.empty() || height[s.top()] < height[i]){
+                s.push(i++);
+            }
+            else{
+                int tmp = s.top();
+                s.pop();
+                maxSum = max(maxSum, height[tmp] * (s.empty()? i : i - s.top() - 1));
+            }
+        }
+        //recover the original vector
+        height.erase(height.begin() + (height.size() - 1));
+        return maxSum;
+    }
+};
