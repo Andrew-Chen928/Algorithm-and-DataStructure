@@ -1,0 +1,59 @@
+/**
+ * Definition for undirected graph.
+ * struct UndirectedGraphNode {
+ *     int label;
+ *     vector<UndirectedGraphNode *> neighbors;
+ *     UndirectedGraphNode(int x) : label(x) {};
+ * };
+ */
+class Solution {
+public:
+    /**
+     * @param node: A undirected graph node
+     * @return: A undirected graph node
+     */
+     
+    void addNeighbors(queue<UndirectedGraphNode*> &q, unordered_map<int, UndirectedGraphNode*> &copy, UndirectedGraphNode* &x, UndirectedGraphNode* tmp)
+    {
+        int n = tmp->neighbors.size();
+        for(int i = 0; i < n; i++)
+        {
+            if(!copy.count(tmp->neighbors[i]->label))
+            {
+                UndirectedGraphNode* y = new UndirectedGraphNode(tmp->neighbors[i]->label);
+                x->neighbors.emplace_back(y);
+                copy[tmp->neighbors[i]->label] = y;
+                q.push(tmp->neighbors[i]);
+            }
+            else
+            {
+                x->neighbors.emplace_back(copy[tmp->neighbors[i]->label]);
+            }
+        }
+    }
+    
+    UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
+        // write your code here
+        if(!node) return node;
+        queue<UndirectedGraphNode*> q;
+        unordered_map<int, UndirectedGraphNode*> copy;
+        q.push(node);
+        while(!q.empty())
+        {
+            UndirectedGraphNode* tmp = q.front();
+            q.pop();
+            if(!copy.count(tmp->label))
+            {
+                UndirectedGraphNode* x = new UndirectedGraphNode(tmp->label);
+                copy[tmp->label] = x;
+                addNeighbors(q, copy, x, tmp);
+            }
+            else
+            {
+                UndirectedGraphNode* x = copy[tmp->label];
+                addNeighbors(q, copy, x, tmp);
+            }
+        }
+        return copy[node->label];
+    }
+};
