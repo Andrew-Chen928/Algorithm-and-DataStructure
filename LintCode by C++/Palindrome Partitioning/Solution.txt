@@ -4,37 +4,36 @@ public:
      * @param s: A string
      * @return: A list of lists of string
      */
-     
+    
     bool isPalin(string s)
     {
-        int i = 0, n = s.length() - 1;
-        while(i <= n){
-            if(s[i] != s[n]) return false;
-            i++;
-            n--;
+        int start = 0, end = s.length() - 1;
+        while(start < end){
+            if(s[start++] != s[end--]) return false;
         }
         return true;
     }
-     
+    
     void part(vector<vector<string>> &res, vector<string> &tmp, string s)
     {
         int n = s.length();
         for(int i = 1; i < n; i++){
             string k = s.substr(0,i);
-            if(isPalin(k))
-            {
+            if(isPalin(k)){
                 tmp.emplace_back(k);
                 part(res, tmp, s.substr(i));
                 tmp.pop_back();
             }
         }
+        
+        //when i >= n, check the whole string s
         if(isPalin(s)){
             tmp.emplace_back(s);
             res.emplace_back(tmp);
             tmp.pop_back();
         }
     }
-    
+     
     vector<vector<string>> partition(string s) {
         // write your code here
         vector<vector<string>> res;
