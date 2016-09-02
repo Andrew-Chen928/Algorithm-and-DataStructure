@@ -1,0 +1,41 @@
+/**
+ * Definition for undirected graph.
+ * struct UndirectedGraphNode {
+ *     int label;
+ *     vector<UndirectedGraphNode *> neighbors;
+ *     UndirectedGraphNode(int x) : label(x) {};
+ * };
+ */
+class Solution {
+public:
+    /**
+     * @param graph a list of Undirected graph node
+     * @param s, t two Undirected graph nodes
+     * @return an integer
+     */
+     
+    int sixDegrees(vector<UndirectedGraphNode*> graph,
+                   UndirectedGraphNode* s,
+                   UndirectedGraphNode* t) {
+        // Write your code here
+        unordered_map<UndirectedGraphNode*, int> visited;
+        visited[s] = 0;
+        queue<UndirectedGraphNode*> q;
+        q.push(s);
+        while(!q.empty()){
+            UndirectedGraphNode *tmp = q.front();
+            q.pop();
+            if(tmp == t) break;
+            
+            //checking the neighbors of tmp
+            for(UndirectedGraphNode* x :tmp->neighbors){
+                if(!visited.count(x)){
+                    visited[x] = visited[tmp] + 1;
+                    q.push(x);
+                } 
+            }
+        }
+        if(visited.count(t)) return visited[t];
+        else return -1;
+    }
+};
