@@ -1,0 +1,67 @@
+/**
+ * Definition for Directed graph.
+ * struct DirectedGraphNode {
+ *     int label;
+ *     vector<DirectedGraphNode *> neighbors;
+ *     DirectedGraphNode(int x) : label(x) {};
+ * };
+ */
+class Solution {
+public:
+    /**
+     * @param graph: A list of Directed graph node
+     * @return: Any topological order for the given graph.
+     */
+    void getDegree(unordered_map<DirectedGraphNode*, int> &indegree, vector<DirectedGraphNode*> graph)
+    {
+        for(int i = 0; i < graph.size(); i++)
+        {
+            int n = graph[i]->neighbors.size();
+            for(int j = 0; j < n; j++)
+            {
+                if(!indegree.count(graph[i]->neighbors[j]))
+                    indegree[graph[i]->neighbors[j]] = 1;
+                else
+                    indegree[graph[i]->neighbors[j]] += 1;
+            }
+        }
+    }
+    
+    void bfs(unordered_map<DirectedGraphNode*, int> &indegree, vector<DirectedGraphNode*> graph, vector<DirectedGraphNode*> &res)
+    {
+        queue<DirectedGraphNode*> q;
+        for(int i = 0; i < graph.size(); i++)
+        {
+            if(indegree[graph[i]] == 0)
+            {
+                res.emplace_back(graph[i]);
+                q.push(graph[i]);    
+            }   
+        }
+        
+        while(!q.empty())
+        {
+            DirectedGraphNode* tmp = q.front();
+            q.pop();
+            
+            for(DirectedGraphNode* x: tmp->neighbors)
+            {
+                indegree[x]--;
+                if(indegree[x] == 0)
+                {
+                    res.emplace_back(x);
+                    q.push(x);
+                }
+            }
+        }
+    }
+
+    vector<DirectedGraphNode*> topSort(vector<DirectedGraphNode*> graph) {
+        // write your code here
+        vector<DirectedGraphNode*> res;
+        unordered_map<DirectedGraphNode*, int> indegree;
+        getDegree(indegree, graph);
+        bfs(indegree, graph, res);
+        return res;
+    }
+};

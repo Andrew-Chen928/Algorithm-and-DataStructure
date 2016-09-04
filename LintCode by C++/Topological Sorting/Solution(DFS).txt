@@ -1,0 +1,56 @@
+/**
+ * Definition for Directed graph.
+ * struct DirectedGraphNode {
+ *     int label;
+ *     vector<DirectedGraphNode *> neighbors;
+ *     DirectedGraphNode(int x) : label(x) {};
+ * };
+ */
+class Solution {
+public:
+    /**
+     * @param graph: A list of Directed graph node
+     * @return: Any topological order for the given graph.
+     */
+    
+    void getDegree(unordered_map<DirectedGraphNode*, int> &indegree, vector<DirectedGraphNode*> graph)
+    {
+        for(int i = 0; i < graph.size(); i++)
+        {
+            for(int j = 0; j < graph[i]->neighbors.size(); j++)
+            {
+                if(!indegree.count(graph[i]->neighbors[j]))
+                    indegree[graph[i]->neighbors[j]] = 1;
+                else
+                    indegree[graph[i]->neighbors[j]]++;
+            }
+        }
+    }
+    
+    
+    void dfs(DirectedGraphNode* x, unordered_map<DirectedGraphNode*, int> &indegree, vector<DirectedGraphNode*> graph, vector<DirectedGraphNode*> &res )
+    {
+        indegree[x]--;
+        res.emplace_back(x);
+        for(int i = 0; i < x->neighbors.size(); i++)
+        {
+            indegree[x->neighbors[i]]--;
+            if(indegree[x->neighbors[i]] == 0)
+            {
+                dfs(x->neighbors[i], indegree, graph, res);
+            }
+        }
+    }
+    
+    vector<DirectedGraphNode*> topSort(vector<DirectedGraphNode*> graph) {
+        // write your code here
+        vector<DirectedGraphNode*> res;
+        unordered_map<DirectedGraphNode*, int> indegree;
+        getDegree(indegree, graph);
+        for(DirectedGraphNode* x: graph)
+        {
+            if(indegree[x] == 0) dfs(x, indegree, graph, res);
+        }
+        return res;
+    }
+};
