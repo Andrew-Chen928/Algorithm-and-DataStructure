@@ -28,7 +28,7 @@ public:
     }
     
     
-    void dfs(DirectedGraphNode* x, unordered_map<DirectedGraphNode*, int> &indegree, vector<DirectedGraphNode*> graph, vector<DirectedGraphNode*> &res )
+    void dfs(DirectedGraphNode* x, unordered_map<DirectedGraphNode*, int> &indegree, vector<DirectedGraphNode*> &res )
     {
         indegree[x]--;
         res.emplace_back(x);
@@ -37,7 +37,7 @@ public:
             indegree[x->neighbors[i]]--;
             if(indegree[x->neighbors[i]] == 0)
             {
-                dfs(x->neighbors[i], indegree, graph, res);
+                dfs(x->neighbors[i], indegree, res);
             }
         }
     }
@@ -49,7 +49,7 @@ public:
         getDegree(indegree, graph);
         for(DirectedGraphNode* x: graph)
         {
-            if(indegree[x] == 0) dfs(x, indegree, graph, res);
+            if(indegree[x] == 0) dfs(x, indegree, res);
         }
         return res;
     }
