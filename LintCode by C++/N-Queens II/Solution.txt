@@ -1,0 +1,43 @@
+class Solution {
+public:
+    /**
+     * Calculate the total number of distinct N-Queen solutions.
+     * @param n: The number of queens.
+     * @return: The total number of distinct solutions.
+     */
+    
+    void findQueen(int &num, vector<int> &validCol, int n)
+    {
+        if(validCol.size() == n)
+        {
+            num++;
+            return;
+        }
+        for(int i = 0; i < n; i++)
+        {
+            if(!isValid(validCol, i)) continue;
+            validCol.emplace_back(i);
+            findQueen(num, validCol, n);
+            validCol.pop_back();
+        }
+    }
+    
+    bool isValid(vector<int> &validCol, int col)
+    {
+        int row = validCol.size();
+        for(int i = 0; i < row; i++)
+        {
+            if(validCol[i] == col) return false;
+            if(abs(i - row) == abs(validCol[i] - col)) return false;
+        }
+        return true;
+    }
+    
+    int totalNQueens(int n) {
+        // write your code here
+        int num = 0;
+        vector<int> validCol;
+        findQueen(num, validCol, n);
+        return num;
+    }
+};
