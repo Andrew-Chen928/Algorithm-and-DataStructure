@@ -1,0 +1,30 @@
+class Solution {
+public:
+    /**
+     * @param S: A set of numbers.
+     * @return: A list of lists. All valid subsets.
+     */
+    vector<vector<int> > subsetsWithDup(vector<int> &S) {
+        // write your code here
+        vector<vector<int> > results;
+        vector<int> subset;
+        sort(S.begin(), S.end());
+        helper(results, subset, S, 0);
+        return results;
+    }
+
+private:
+    void helper(vector<vector<int> > &results, vector<int> subset,
+                vector<int> S, int start) {
+            results.push_back(subset);
+            for (int i = start; i < S.size(); i++) {
+                if(i != start && S[i] == S[i-1])
+                {
+                    continue;
+                }
+                subset.push_back(S[i]);
+                helper(results, subset, S, i + 1);
+                subset.pop_back();
+            }
+        }
+};
