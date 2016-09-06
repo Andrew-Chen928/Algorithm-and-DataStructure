@@ -1,0 +1,48 @@
+class Solution {
+public:
+    /**
+      * @param start, a string
+      * @param end, a string
+      * @param dict, a set of string
+      * @return an integer
+      */
+    int ladderLength(string start, string end, unordered_set<string> &dict) {
+        // write your code here
+        if(start == end) return 1;
+        dict.erase(start);
+        queue<string> q;
+        q.push(start);
+        int len = 2;
+        int digit = end.length();
+        while(!q.empty())
+        {
+            int n = q.size();
+            for(int i = 0; i < n; i++)
+            {
+                string word = q.front();
+                q.pop();
+                for(int j = 0; j < digit; j++)
+                {
+                    char oldChar = word[j];
+                    for(int k = 'a'; k <= 'z'; k++)
+                    {
+                        if(k == oldChar) continue;
+                        word[j] = k;
+                        if(word == end) 
+                        {
+                            return len;
+                        }
+                        if(dict.count(word))
+                        {
+                            q.push(word);
+                            dict.erase(word);
+                        }
+                    }
+                    word[j] = oldChar;
+                }
+            }
+            len++;
+        }
+        return 0;
+    }
+};
