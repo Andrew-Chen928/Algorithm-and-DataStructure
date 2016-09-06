@@ -1,0 +1,32 @@
+class Solution {
+public:
+    /**
+     * @param nums: A list of integers.
+     * @return: A list of permutations.
+     */
+    void BT(vector<vector<int>> &res, vector<int> &tmp, vector<int> nums)
+    {
+        if(tmp.size() == nums.size()) 
+        {
+            res.emplace_back(tmp);
+            return;
+        }
+        
+        for(int i = 0; i < nums.size(); i++)
+        {
+            if(find(tmp.begin(), tmp.end(), nums[i]) != tmp.end()) continue;
+            tmp.emplace_back(nums[i]);
+            BT(res, tmp, nums);
+            tmp.pop_back();
+        }
+    }
+     
+    vector<vector<int> > permute(vector<int> nums) {
+        // write your code here
+       vector<vector<int>> res;
+       vector<int> tmp;
+       sort(nums.begin(), nums.end());
+       BT(res, tmp, nums);
+       return res;
+    }
+};
