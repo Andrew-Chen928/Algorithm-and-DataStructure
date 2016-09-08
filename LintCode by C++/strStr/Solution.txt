@@ -1,3 +1,30 @@
+//first solution 
+class Solution {
+public:
+    /**
+     * Returns a index to the first occurrence of target in source,
+     * or -1  if target is not part of source.
+     * @param source string to be scanned.
+     * @param target string containing the sequence of characters to match.
+     */
+    int strStr(const char *source, const char *target) {
+        if(source == nullptr || target == nullptr) return -1;
+        int n1 = strlen(source), n2 = strlen(target);
+        int i, j;
+        for(i = 0; i <= n1 - n2 + 1; i++)
+        {
+            for(j = 0; j < n2; j++)
+            {
+                if(source[i+j] != target[j]) break;
+            }
+            if(j == n2) return i;
+        }
+        return -1;
+    }
+};
+
+
+//second solution (use memcpy to get substr)
 class Solution {
 public:
     /**
