@@ -4,27 +4,24 @@ public:
      * @param S: A set of numbers.
      * @return: A list of lists. All valid subsets.
      */
-    vector<vector<int> > subsetsWithDup(vector<int> &S) {
+    vector<vector<int>> subsetsWithDup(vector<int> &S) {
         // write your code here
-        vector<vector<int> > results;
-        vector<int> subset;
+        vector<vector<int>> res;
+        vector<int> sub;
         sort(S.begin(), S.end());
-        helper(results, subset, S, 0);
-        return results;
+        backtrack(res, sub, 0, S);
+        return res;
     }
-
-private:
-    void helper(vector<vector<int> > &results, vector<int> subset,
-                vector<int> S, int start) {
-            results.push_back(subset);
-            for (int i = start; i < S.size(); i++) {
-                if(i != start && S[i] == S[i-1])
-                {
-                    continue;
-                }
-                subset.push_back(S[i]);
-                helper(results, subset, S, i + 1);
-                subset.pop_back();
-            }
+    
+    void backtrack(vector<vector<int>> &res, vector<int> &sub, int start, vector<int> &S)
+    {
+        res.emplace_back(sub);
+        for(int i = start; i < S.size(); i++)
+        {
+            if(i != start && S[i] == S[i-1]) continue;
+            sub.emplace_back(S[i]);
+            backtrack(res, sub, i + 1, S);
+            sub.pop_back();
         }
+    }
 };
