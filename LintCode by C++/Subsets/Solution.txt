@@ -1,3 +1,32 @@
+//solution 1:
+class Solution {
+public:
+    /**
+     * @param S: A set of numbers.
+     * @return: A list of lists. All valid subsets.
+     */
+    void backtrack(vector<vector<int>> &res,  vector<int> &sub, int start, vector<int> &nums)
+    {
+        res.push_back(sub);
+        for(int i = start; i < nums.size(); i++)
+        {
+            sub.push_back(nums[i]);
+            backtrack(res, sub, i + 1, nums);
+            sub.pop_back();
+        }
+    }
+    
+    vector<vector<int> > subsets(vector<int> &nums) {
+        // write your code here
+        vector<vector<int>> res;
+        vector<int> sub;
+        backtrack(res, sub, 0, nums);
+        return res;
+    }
+};
+
+
+//============================== solution 2 ==================================
 class Solution {
 public:
     /**
