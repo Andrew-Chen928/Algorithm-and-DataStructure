@@ -1,0 +1,36 @@
+class Solution {
+public:
+    /** 
+     *@param L: Given n pieces of wood with length L[i]
+     *@param k: An integer
+     *return: The maximum length of the small pieces.
+     */
+    bool isValid(vector<int> &L, int mid, int k)
+    {
+        int sum = 0;
+        for(int i = 0; i < L.size(); i++)
+        {
+            sum += L[i] / mid;
+        }
+        return sum >= k;
+    }
+    
+    int woodCut(vector<int> L, int k) {
+        // write your code here
+        long left = 0, right = 0;
+        //get the right bound
+        for(int i = 0; i < L.size(); i++)
+        {
+            if(L[i] > right) right = L[i];
+        }
+        //binary search
+        while(left + 1 < right)
+        {
+            long mid = left + (right - left) / 2;
+            if(isValid(L, mid, k)) left = mid;
+            else right = mid;
+        }
+        if(isValid(L, right, k)) return right;
+        else return left;
+    }
+};
