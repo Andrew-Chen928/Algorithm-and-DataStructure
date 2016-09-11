@@ -1,0 +1,39 @@
+class Solution {
+public:
+    /**
+     * @param A an integer array sorted in ascending order
+     * @param target an integer
+     * @return an integer
+     */
+    
+    int totalOccurrence(vector<int>& A, int target) {
+        // Write your code here
+        int n = A.size();
+        if(n == 0) return 0;
+        int small = 0, large = n - 1;
+        int left = 0, right = n - 1;
+        if(A[left] > target || A[right] < target) return 0;
+        while(left + 1 < right)
+        {
+            int mid = left + (right - left) / 2;
+            if(A[mid] >= target) right = mid;
+            else left = mid;
+        }
+        if(A[left] != target && A[right] != target) return 0;
+        if(A[left] == target) small = left;
+        else if(A[right] == target) small = right;
+       
+        left = 0; 
+        right = n - 1;
+        while(left + 1 < right)
+        {
+            int mid = left + (right - left) / 2;
+            if(A[mid] > target) right = mid;
+            else left = mid;
+        }
+        
+        if(A[right] == target) large = right;
+        else if(A[left] == target) large = left;
+        return large - small + 1;
+    }
+};
