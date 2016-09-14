@@ -1,0 +1,22 @@
+class Solution {
+public:
+    /**
+     * @param A an integer array sorted in ascending order
+     * @param target an integer
+     * @return an integer
+     */
+    int lastPosition(vector<int>& A, int target) {
+        // Write your code here
+        if(A.size() == 0) return -1;
+        int left = 0, right = A.size() -1;
+        while(left + 1 < right)
+        {
+            int mid = left + (right - left) / 2;
+            if(A[mid] <= target) left = mid;
+            else right = mid;
+        }
+        if(A[right] == target) return right;
+        if(A[left] == target) return left;
+        return -1;
+    }
+};
