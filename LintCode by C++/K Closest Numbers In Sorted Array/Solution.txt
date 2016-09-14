@@ -1,0 +1,48 @@
+class Solution {
+public:
+    /**
+     * @param A an integer array
+     * @param target an integer
+     * @param k a non-negative integer
+     * @return an integer array
+     */
+    
+    int findMin(vector<int> &A, int &left, int &right, int target)
+    {
+        if(left < 0) return right;
+        if(right >= A.size()) return left;
+        return abs(A[left] - target) <= abs(A[right] - target)? left : right;
+    }
+    
+    vector<int> kClosestNumbers(vector<int>& A, int target, int k) {
+        // Write your code here
+        
+        int left = 0, start = -1, right = A.size() -1;
+        while(left + 1 < right)
+        {
+            int mid = (left + right) / 2;
+            if(A[mid] == target){
+                start = mid;
+                break;
+            }
+            if(A[mid] > target) right = mid;
+            else left = mid;
+        }
+        if(start == -1)
+        {
+            start = findMin(A, left, right, target);
+        }
+        
+        vector<int> res;
+        left = start -1;
+        right = start;
+        for(int i = 0; i < k; i++)
+        {
+            int tmp = findMin(A, left, right, target);
+            if(tmp == left) left--;
+            else right++;
+            res.emplace_back(A[tmp]);
+        }
+        return res;
+    }
+};
