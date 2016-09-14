@@ -6,36 +6,29 @@ class Solution {
      */
 public:
     vector<int> searchRange(vector<int> &A, int target) {
-        // write your code here
-        
-        vector<int> result = {-1,-1};
-        if(A.size() < 1) return result;
-        int start = 0, end = A.size() - 1;
-        int mid;
-        while(start +1 < end)
+        // find the first position
+        vector<int> res(2, -1);
+        if(A.size() == 0) return res;
+        int left = 0, right = A.size() - 1;
+        while(left + 1 < right)
         {
-            mid = start + ( end - start ) / 2;
-            if(A[mid] == target) end = mid;
-            else if(A[mid] > target) end = mid;
-            else start = mid;
+            int mid = left + (right - left) / 2;
+            if(A[mid] >= target) right = mid;
+            else left = mid;
         }
+        if(A[left] != target && A[right] != target) return res;
+        res[0] = A[left] == target? left : right;
         
-        if(A[start] == target) result[0] = start;
-        else if(A[end] == target) result[0] = end;
-        else return result;
-        
-        start = 0;
-        end = A.size() - 1;
-        while(start +1 < end)
+        //find the last position
+        left = 0;
+        right = A.size() - 1;
+        while(left + 1 < right)
         {
-            mid = start + ( end - start ) / 2;
-            if(A[mid] == target) start = mid;
-            else if(A[mid] > target) end = mid;
-            else start = mid;
+            int mid = left + (right - left) / 2;
+            if(A[mid] <= target) left = mid;
+            else right = mid;
         }
-        if (A[end] == target) result[1] = end;
-        else if (A[start] == target) result[1] = start;
-        return result;
-        
+        res[1] = A[right] == target? right : left;
+        return res;
     }
 };
