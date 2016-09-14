@@ -14,20 +14,14 @@ public:
      */
     int findFirstBadVersion(int n) {
         // write your code here
-        
-        int start = 1, end = n;
-        while(start < end)
+        int left = 0, right = n;
+        while(left + 1 < right)
         {
-            int mid = start + (end - start) / 2;
-            if(SVNRepo::isBadVersion(mid))
-            {
-                end = mid;
-            }
-            else
-            {
-                start = mid + 1;
-            }
+            int mid = left + (right - left) / 2;
+            if(SVNRepo::isBadVersion(mid)) right = mid;
+            else left = mid;
         }
-        return end;
+        if(SVNRepo::isBadVersion(left)) return left;
+        else return right;
     }
 };
