@@ -12,10 +12,10 @@ public:
         while(left + 1 < right)
         {
             int mid = left + (right - left) / 2;
-            if(A[mid] >= target) right = mid;
+            if(A[mid] == target) return mid;
+            if(A[mid] > target) right = mid;
             else left = mid;
         }
-        if(A[left] != target && A[right] != target) return -1;
-        return A[left] == target? left : right;
+        return -1;
     }
 };
