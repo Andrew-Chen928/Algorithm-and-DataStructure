@@ -7,38 +7,27 @@ class Solution {
 public:
     int search(vector<int> &A, int target) {
         // write your code here
-        int start = 0, end = A.size() -1;
-        
-        while(start <= end)
+        if(A.size() == 0) return -1;
+        int left = 0, right = A.size() -1;
+        while(left + 1 < right)
         {
-            int mid = start + (end - start) / 2;
-            if(A[mid] == target) 
+            int mid = left + (right - left) / 2;
+            if(A[mid] == target) return mid;
+            if(A[mid] >= A[left])
             {
-                return mid;
-            }
-            if(A[mid] < A[end])
-            {
-                if(A[mid] < target  && target <= A[end])
-                {
-                    start = mid + 1;
-                }
-                else
-                {
-                    end = mid - 1;
-                }
+                if(A[left] <= target && target <= A[mid]) right = mid;
+                else left = mid;
             }
             else
             {
-                if(A[start] <= target && target < A[mid])
-                {
-                    end = mid - 1;
-                }
-                else
-                {
-                    start = mid + 1;
-                }
+                if(A[mid] <= target && target <= A[A.size() - 1]) left = mid;
+                else right = mid;
             }
         }
+        if(A[left] == target) return left;
+        if(A[right] == target) return right;
         return -1;
     }
 };
+
+
