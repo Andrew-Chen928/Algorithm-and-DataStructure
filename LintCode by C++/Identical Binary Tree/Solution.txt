@@ -21,7 +21,6 @@ public:
         if(!a && !b) return true;
         if(!a || !b) return false;
         if(a->val != b->val) return false;
-        if(isIdentical(a->left, b->left) && isIdentical(a->right, b->right)) return true;
-        return false;
+        return (isIdentical(a->left, b->left) && isIdentical(a->right, b->right));
     }
 };

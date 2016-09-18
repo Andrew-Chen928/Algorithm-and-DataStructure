@@ -22,8 +22,7 @@ public:
         if(left == nullptr && right == nullptr) return true;
         if(left == nullptr || right == nullptr) return false;
         if(left->val != right->val) return false;
-        if(help(left->left, right->right) && help(left->right, right->left)) return true;
-        return false;
+        return help(left->left, right->right) && help(left->right, right->left);
     }
     
     bool isSymmetric(TreeNode* root) {
