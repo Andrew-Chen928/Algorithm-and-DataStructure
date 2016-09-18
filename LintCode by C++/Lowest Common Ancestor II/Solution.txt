@@ -17,10 +17,15 @@ public:
                                            ParentTreeNode *A,
                                            ParentTreeNode *B) {
         // Write your code here
-        if(root == nullptr || root == A || root == B) return root;
-        ParentTreeNode *left = lowestCommonAncestorII(root->left, A, B);
-        ParentTreeNode *right = lowestCommonAncestorII(root->right, A, B);
-        if(left != nullptr && right != nullptr) return root;
-        return left == nullptr? right : left;
+        unordered_set<ParentTreeNode*> checked;
+        while(A){
+            checked.insert(A);
+            A = A->parent;
+        }
+        while(B)
+        {
+            if(checked.count(B)) return B;
+            B = B->parent;
+        }
     }
 };
