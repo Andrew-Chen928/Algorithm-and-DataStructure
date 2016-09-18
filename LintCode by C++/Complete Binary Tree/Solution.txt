@@ -1,0 +1,48 @@
+/**
+ * Definition of TreeNode:
+ * class TreeNode {
+ * public:
+ *     int val;
+ *     TreeNode *left, *right;
+ *     TreeNode(int val) {
+ *         this->val = val;
+ *         this->left = this->right = NULL;
+ *     }
+ * }
+ */
+class Solution {
+public:
+    /**
+     * @param root, the root of binary tree.
+     * @return true if it is a complete binary tree, or false.
+     */
+    bool isComplete(TreeNode* root) {
+        // Write your code here
+        vector<TreeNode*> Q;
+        Q.push_back(root);
+        for(int i = 0; i < Q.size(); i++)
+        {
+            TreeNode *tmp = Q[i];
+            if(tmp)
+            {
+                Q.push_back(tmp->left);
+                Q.push_back(tmp->right);
+            }
+        }
+        
+        int index = 0;
+        for(int i = Q.size() - 1; i >= 0; i--)
+        {
+            if(Q[i]){
+                index = i;
+                break;
+            }
+        }
+        
+        for(int i = index - 1; i >= 0; i--)
+        {
+            if(!Q[i]) return false;
+        }
+        return true;
+    }
+};
