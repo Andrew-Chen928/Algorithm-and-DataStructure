@@ -1,0 +1,50 @@
+/**
+ * Definition of TreeNode:
+ * class TreeNode {
+ * public:
+ *     int val;
+ *     TreeNode *left, *right;
+ *     TreeNode(int val) {
+ *         this->val = val;
+ *         this->left = this->right = NULL;
+ *     }
+ * }
+ */
+class Solution {
+    /**
+     * @param root: The root of binary tree.
+     * @return: Postorder in vector which contains node values.
+     */
+public:
+    void reverse(vector<int> &res)
+    {
+        int start = 0;
+        int end = res.size() - 1;
+        while(start <= end)
+        {
+            int tmp = res[start];
+            res[start] = res[end];
+            res[end] = tmp;
+            start++;
+            end--;
+        }
+    }
+    
+    vector<int> postorderTraversal(TreeNode *root) {
+        // write your code here
+        vector<int> res;
+        if(root == nullptr) return res;
+        stack<TreeNode*> S;
+        S.push(root);
+        while(!S.empty())
+        {
+            TreeNode *tmp = S.top();
+            S.pop();
+            res.push_back(tmp->val);
+            if(tmp->left) S.push(tmp->left);
+            if(tmp->right) S.push(tmp->right);
+        }
+        reverse(res);
+        return res;
+    }
+};
