@@ -1,0 +1,34 @@
+/**
+ * Definition of TreeNode:
+ * class TreeNode {
+ * public:
+ *     int val;
+ *     TreeNode *left, *right;
+ *     TreeNode(int val) {
+ *         this->val = val;
+ *         this->left = this->right = NULL;
+ *     }
+ * }
+ */
+class Solution {
+    /**
+     * @param root: The root of binary tree.
+     * @return: Inorder in vector which contains node values.
+     */
+public:
+    void inOrder(TreeNode *root, vector<int> &res)
+    {
+        if(root == nullptr) return;
+        inOrder(root->left, res);
+        res.emplace_back(root->val);
+        inOrder(root->right, res);
+    }
+    
+    
+    vector<int> inorderTraversal(TreeNode *root) {
+        // write your code here
+        vector<int> res;
+        inOrder(root, res);
+        return res;
+    }
+};
