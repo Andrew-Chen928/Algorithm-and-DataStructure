@@ -1,3 +1,37 @@
+//solution 1
+/**
+ * Definition of TreeNode:
+ * class TreeNode {
+ * public:
+ *     int val;
+ *     TreeNode *left, *right;
+ *     TreeNode(int val) {
+ *         this->val = val;
+ *         this->left = this->right = NULL;
+ *     }
+ * }
+ */
+ 
+class Solution {
+public:
+    /**
+     * @param root: The root of binary tree.
+     * @return: True if the binary tree is BST, or false
+     */
+    bool helper(TreeNode *root, long long min, long long max) {
+        if (root == NULL) return true;
+        if (root->val <= min || root->val >= max) return false;
+        return helper(root->left, min, root->val) && helper(root->right, root->val, max);
+    }
+    
+    bool isValidBST(TreeNode *root) {
+        if (root == NULL) return true;
+        return helper(root, LLONG_MIN, LLONG_MAX);
+    }
+};
+ 
+
+//solution 2
 /**
  * Definition of TreeNode:
  * class TreeNode {
@@ -39,3 +73,5 @@ public:
        return true;
     }
 };
+
+
