@@ -11,35 +11,34 @@
  * }
  */
 
-int getHeight(TreeNode *root)
-{
-    if(root == nullptr) return 0;
-    else return 1 + max(getHeight(root->left), getHeight(root->right));
-}
-
-void level_order(TreeNode *root, vector<vector<int>> &v, int count)
-{
-    count++;
-    if(root != nullptr) 
-    {
-        v[count].emplace_back(root->val);
-        level_order(root->left, v, count);
-        level_order(root->right, v, count);
-    }
-}
-
 class Solution {
     /**
      * @param root: The root of binary tree.
      * @return: Level order a list of lists of integer
      */
 public:
+    
+    int getHeight(TreeNode *root)
+    {
+        if(!root) return 0;
+        return 1 + max(getHeight(root->left), getHeight(root->right));
+    }
+    
+    void DFS(TreeNode *root, vector<vector<int>> &v, int n)
+    {
+        if(root){
+            v[n].emplace_back(root->val);
+            n++;
+            DFS(root->left, v, n);
+            DFS(root->right, v, n);
+        }
+        
+    }
+    
     vector<vector<int>> levelOrder(TreeNode *root) {
         // write your code here
-        int h = getHeight(root);
-        vector<vector<int>> v(h);
-        int count = -1;
-        level_order(root, v, count);
-        return v;
+        vector<vector<int>> res(getHeight(root));
+        DFS(root, res, 0);
+        return res;
     }
 };
