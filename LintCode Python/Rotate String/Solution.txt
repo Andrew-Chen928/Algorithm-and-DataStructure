@@ -1,0 +1,16 @@
+class Solution:
+    # @param s: a list of char
+    # @param offset: an integer 
+    # @return: nothing
+    def rotateString(self, s, offset):
+	    # write you code here
+        if len(s) == 0:
+            return s
+        l = len(s)
+        offset %= l
+        left = l - offset
+        tmp = s[left:]
+        for n in reversed(range(left)):
+            s[n + offset] = s[n]
+        for i in range(offset):
+            s[i] = tmp[i]
