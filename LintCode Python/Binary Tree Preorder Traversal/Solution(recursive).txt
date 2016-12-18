@@ -1,0 +1,29 @@
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left, self.right = None, None
+"""
+
+
+class Solution:
+    """
+    @param root: The root of binary tree.
+    @return: Preorder in ArrayList which contains node values.
+    """
+    
+    def preOrder(self, root, answer):
+        answer.append(root.val)
+        if root.left:
+            self.preOrder(root.left, answer)
+        if root.right:
+            self.preOrder(root.right, answer)
+        
+    
+    def preorderTraversal(self, root):
+        # write your code here
+        answer = []
+        if root:
+            self.preOrder(root, answer)
+        return answer
