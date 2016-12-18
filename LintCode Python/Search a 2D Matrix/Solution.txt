@@ -1,0 +1,23 @@
+class Solution:
+    """
+    @param matrix, a list of lists of integers
+    @param target, an integer
+    @return a boolean, indicate whether matrix contains target
+    """
+    def searchMatrix(self, matrix, target):
+        # write your code here
+        if not matrix:
+            return False
+        left, right = 0, len(matrix) * len(matrix[0]) - 1
+        row, col = len(matrix), len(matrix[0])
+        while left + 1 < right:
+            mid = (left + right) / 2
+            if matrix[mid / col][mid % col] >= target:
+                right = mid
+            else:
+                left = mid
+        if matrix[left / col][left % col] == target or matrix[right / col][right % col] == target:
+            return True
+        return False
+        
+        
