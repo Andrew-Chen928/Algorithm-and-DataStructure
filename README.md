@@ -1,6 +1,6 @@
 # Lintcode_practice
-It's my personal practice of Lintcode questions
+It's my personal practice of Lintcode questions<br>
 Including 3 programming language:<br>
-C++
-Java
+C++<br>
+Java<br>
 Python
