@@ -1,0 +1,10 @@
+class Solution:
+    # @param {int} n an integer
+    # @return {int} an integer
+    def dropEggs(self, n):
+        # Write your code here
+        ans, floor = 0, 0
+        while floor < n:
+            ans += 1
+            floor += ans
+        return ans

@@ -1,0 +1,18 @@
+class Solution {
+public:
+    /**
+     * @param n an integer
+     * @return an integer
+     */
+    int dropEggs(int n) {
+        // Write your code here
+        int ans = 0;
+        long long floor = 0;
+        while(floor < n)
+        {
+            ans++;
+            floor += ans;
+        }
+        return ans;
+    }
+};

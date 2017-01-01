@@ -1,0 +1,17 @@
+public class Solution {
+    /**
+     * @param n an integer
+     * @return an integer
+     */
+    public int dropEggs(int n) {
+        // Write your code here
+        int ans = 0;
+        long floor = 0;
+        while(floor < n)
+        {
+            ans++;
+            floor += ans;
+        }
+        return ans;
+    }
+}
