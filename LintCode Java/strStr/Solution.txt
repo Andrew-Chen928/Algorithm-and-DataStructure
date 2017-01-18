@@ -6,15 +6,18 @@ class Solution {
      * @param target string containing the sequence of characters to match.
      */
     public int strStr(String source, String target) {
-        if (source == null || target == null) return -1;
-        for (int i = 0; i < source.length() - target.length() + 1; i++)
+        if(source == null || target == null) return -1;
+        int len1 = source.length(), len2 = target.length();
+        for(int i = 0; i < len1 - len2 + 1; i++)
         {
-            int j = 0;
-            for(j = 0; j < target.length(); j++)
+            int n = 0;
+            for(n = 0; n < len2; n++)
             {
-                if(source.charAt(i+j) != target.charAt(j)) break;
+                if(source.charAt(i + n) != target.charAt(n)) {
+                    break;
+                }  
             }
-            if(j == target.length()) return i;
+            if(n == len2) return i;
         }
         return -1;
     }

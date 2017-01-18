@@ -1,0 +1,25 @@
+class Solution {
+    /**
+     * @param nums: A set of numbers.
+     * @return: A list of lists. All valid subsets.
+     */
+     
+    private void backTrack(ArrayList<ArrayList<Integer>> res, ArrayList<Integer> sub, int start, int[] nums) {
+        res.add(new ArrayList<Integer>(sub));
+        for(int i = start; i < nums.length; i++) {
+            if(i > start && nums[i] == nums[i-1]) continue;
+            sub.add(nums[i]);
+            backTrack(res, sub, i + 1, nums);
+            sub.remove(sub.size() - 1);
+        }
+    }
+     
+    public ArrayList<ArrayList<Integer>> subsetsWithDup(int[] nums) {
+        // write your code here
+        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+        ArrayList<Integer> sub = new ArrayList<>();
+        Arrays.sort(nums);
+        backTrack(res, sub, 0, nums);
+        return res;
+    }
+}

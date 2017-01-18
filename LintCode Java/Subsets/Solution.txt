@@ -1,0 +1,25 @@
+class Solution {
+    /**
+     * @param S: A set of numbers.
+     * @return: A list of lists. All valid subsets.
+     */
+     
+    private void backtrack(ArrayList<ArrayList<Integer>> res, ArrayList<Integer> sub, int start, int[] nums) {
+        res.add(new ArrayList<Integer>(sub));
+        for(int i = start; i < nums.length; i++)
+        {
+            sub.add(nums[i]);
+            backtrack(res, sub, i + 1, nums);
+            sub.remove(sub.size() - 1);
+        }
+    } 
+     
+    public ArrayList<ArrayList<Integer>> subsets(int[] nums) {
+        // write your code here
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+        ArrayList<Integer> sub = new ArrayList<Integer>();
+        Arrays.sort(nums); 
+        backtrack(res, sub, 0, nums);
+        return res;
+    }
+}
