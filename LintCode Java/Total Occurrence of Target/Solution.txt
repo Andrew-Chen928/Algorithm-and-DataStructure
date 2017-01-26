@@ -1,0 +1,37 @@
+public class Solution {
+    /**
+     * @param A an integer array sorted in ascending order
+     * @param target an integer
+     * @return an integer
+     */
+    public int totalOccurrence(int[] A, int target) {
+        // Write your code here
+        if(A.length == 0) return 0;
+        int left = 0, right = A.length - 1;
+        int small = 0, large = 0;
+        while(left + 1 < right)
+        {
+            int mid = (left + right) / 2;
+            if(A[mid] >= target) right = mid;
+            else left = mid;
+        }
+        
+        if(A[left] != target && A[right] != target) return 0;
+        if(A[left] == target) small = left;
+        else small = right;
+        
+        left = 0;
+        right = A.length - 1;
+        
+        while(left + 1 < right)
+        {
+            int mid = (left + right) / 2;
+            if(A[mid] <= target) left = mid;
+            else right = mid;
+        }
+        if(A[left] != target && A[right] != target) return 0;
+        if(A[right] == target) large = right;
+        else large = left;
+        return large - small + 1;
+    }
+}

@@ -1,0 +1,30 @@
+class Solution {
+    /**
+     * @param nums: A list of integers.
+     * @return: A list of permutations.
+     */
+    
+    private void permu(ArrayList<List<Integer>> res, ArrayList<Integer> tmp, int[] nums)
+    {
+        if(tmp.size() == nums.length) {
+            res.add(new ArrayList<Integer>(tmp));
+            return;
+        }
+        for(int i = 0; i < nums.length; i++) {
+            if(tmp.contains(nums[i])) {
+                continue;
+            }
+            tmp.add(nums[i]);
+            permu(res, tmp, nums);
+            tmp.remove(tmp.size() -1);
+        }
+    }
+     
+    public List<List<Integer>> permute(int[] nums) {
+        // write your code here
+        ArrayList<List<Integer>> res = new ArrayList<>();
+        ArrayList<Integer> tmp = new ArrayList<>();
+        permu(res, tmp, nums);
+        return res;
+    }
+}

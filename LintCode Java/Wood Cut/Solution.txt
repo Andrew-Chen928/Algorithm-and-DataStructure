@@ -1,0 +1,35 @@
+public class Solution {
+    /** 
+     *@param L: Given n pieces of wood with length L[i]
+     *@param k: An integer
+     *return: The maximum length of the small pieces.
+     */
+    private boolean isValid(int[] L, int k, int mid)
+    {
+        int sum = 0;
+        for(int i = 0; i < L.length; i++)
+        {
+            sum += L[i] / mid;
+        }
+        if(sum >= k) return true;
+        else return false;
+    }
+    
+    public int woodCut(int[] L, int k) {
+        // write your code here
+        int left = 0, right = 0;
+        for(int i = 0; i < L.length; i++)
+        {
+            if(right < L[i]) right = L[i];
+        }
+        while(left + 1 < right)
+        {
+            int mid = left + (right - left) / 2;
+            if(isValid(L, k, mid) == true) left = mid;
+            else right = mid;
+        }
+        
+        if(isValid(L, k, right) == true) return right;
+        else return left;
+    }
+}
