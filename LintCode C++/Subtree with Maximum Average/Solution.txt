@@ -1,0 +1,55 @@
+/**
+ * Definition of TreeNode:
+ * class TreeNode {
+ * public:
+ *     int val;
+ *     TreeNode *left, *right>;
+ *     TreeNode(int val) {
+ *         this->val = val;
+ *         this->left = this->right> = NULL;
+ *     }
+ * }
+ */
+class Solution {
+public:
+    /**
+     * @param root the root of binary tree
+     * @return the root of the maximum average of subtree 
+     */
+    class nodeDetail {
+        public:
+            int sum, size;
+            nodeDetail(int sum, int size)
+            {
+                this->sum = sum;
+                this->size = size;
+            }
+    };
+    
+    TreeNode* answer = NULL;
+    nodeDetail* tmp = NULL;
+    
+    TreeNode* findSubtree2(TreeNode* root) {
+        // Write your code here
+        helper(root);
+        return answer;
+    }
+    
+    nodeDetail* helper(TreeNode* root) {
+        if(!root) {
+            return new nodeDetail(0, 0);
+        }
+        nodeDetail* left = helper(root->left);
+        nodeDetail* right = helper(root->right);
+        nodeDetail* result = new nodeDetail(
+            left->sum + right->sum + root->val,
+            left->size + right->size + 1
+        );
+        if(!answer || (tmp->sum * result->size < tmp->size * result->sum))
+        {
+            answer = root;
+            tmp = result;
+        }
+        return result;
+    }
+};

@@ -1,0 +1,23 @@
+public class Solution {
+    /**
+     * @param nums: a rotated sorted array
+     * @return: the minimum number in the array
+     */
+    public int findMin(int[] nums) {
+        // write your code here
+        int left = 0, right = nums.length - 1;
+        int tail = nums[nums.length - 1];
+        
+        while(left + 1 < right)
+        {
+            int mid = left + (right - left) / 2;
+            
+            if(nums[mid] >= tail) {
+                left = mid;
+            }
+            else right = mid;
+        }
+        
+        return nums[left] > nums[right] ? nums[right] : nums[left];
+    }
+}

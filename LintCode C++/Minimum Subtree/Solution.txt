@@ -1,0 +1,42 @@
+/**
+ * Definition of TreeNode:
+ * class TreeNode {
+ * public:
+ *     int val;
+ *     TreeNode *left, *right;
+ *     TreeNode(int val) {
+ *         this->val = val;
+ *         this->left = this->right = NULL;
+ *     }
+ * }
+ */
+class Solution {
+public:
+    /**
+     * @param root the root of binary tree
+     * @return the root of the minimum subtree
+     */
+     
+    TreeNode* findSubtree(TreeNode* root) {
+        // Write your code here
+        helper(root);
+        return answer;
+    }
+    
+    int helper(TreeNode* root)
+    {
+        if(!root) return 0;
+        int left = helper(root->left);
+        int right = helper(root->right);
+        int sum = left + right + root->val;
+        if(sum < min) {
+            min = sum;
+            answer = root;
+        }
+        return sum;
+    }
+
+private:
+    int min = INT_MAX;
+    TreeNode* answer = NULL;
+};

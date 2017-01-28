@@ -1,0 +1,48 @@
+public class Solution {
+    /**
+     * @param pages: an array of integers
+     * @param k: an integer
+     * @return: an integer
+     */
+    public int copyBooks(int[] pages, int k) {
+        // write your code here
+        
+        if(pages.length == 0) return 0;
+        int sum = 0, avg = 0, max = 0;
+        for(int i = 0; i < pages.length; i++)
+        {
+            if(pages[i] > max) max = pages[i];
+            sum += pages[i];
+        }
+        if (k >= pages.length) return max;
+        avg = sum / k;
+        
+        return binarySearch(pages, k, avg, sum);
+    }
+    
+    private int binarySearch(int[] pages, int k, int left, int right)
+    {
+        while(left + 1 < right)
+        {
+            int mid = left + (right - left) / 2;
+            if(isValid(pages, k, mid) == true) right = mid;
+            else left = mid;
+        }
+        if(isValid(pages, k, left) == true) return left;
+        else return right;
+    }
+    
+    private boolean isValid(int[] pages, int k, int mid)
+    {
+        int sum = 0, people = 1;
+        for(int i = 0; i < pages.length && people <= k; i++)
+        {
+            if(sum + pages[i] > mid) {
+                sum = 0;
+                people++;
+            }
+            sum += pages[i];
+        }
+        return people <= k && sum <= mid;
+    }
+}
