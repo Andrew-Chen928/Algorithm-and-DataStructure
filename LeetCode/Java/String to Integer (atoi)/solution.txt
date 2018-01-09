@@ -1,0 +1,30 @@
+class Solution {
+    public int myAtoi(String str) {
+        if(str == null || str.length() == 0) return 0;
+        int sign = 1;
+        int start = 0;
+        int sum = 0;
+        int max = Integer.MAX_VALUE / 10;     
+        str = str.trim();
+        
+        if(str.charAt(0) == '+') {
+            start++;
+        }
+        else if(str.charAt(0) == '-') {
+            start++;
+            sign = -1;
+        }
+        
+        for(int i = start; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if('0' <= c && c <= '9') {
+                if(sum > max || sum == max && c > '7') {
+                    return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+                }
+                sum = 10 * sum + (c - '0');
+            }
+            else break;
+        }
+        return sum * sign;
+    }
+}
